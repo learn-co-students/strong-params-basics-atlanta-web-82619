@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
+	
 	def index
 		@posts = Post.all
 	end
 
 	def show
-		@post = Post.find(params[:id])
+		@post = Post.find_by(id: params[:id])
 	end
 
 	def new
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
 	end
 
 	def update
-	  @post = Post.find(params[:id]) 
+	  @post = Post.find_by(id: params[:id]) 
 	  @post.update(post_params(:title)) #specifies which parameters are allowed to be edited
 	  #@post.update(params["post"]) #we get rid of this so we can specify which parameters are allowed
 	  redirect_to post_path(@post)
@@ -30,6 +31,7 @@ class PostsController < ApplicationController
 	end
 
 	def post_params(*args)
-		params.require(:post).permit(*args)
+	  params.require(:post).permit(*args)
 	end
+	
 end
